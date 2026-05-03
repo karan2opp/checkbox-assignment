@@ -45,7 +45,7 @@ loginBtn.addEventListener("click", () => {
 });
 
 signupBtn.addEventListener("click", () => {
-  window.location.href = `https://auth.karanop.in/register`;
+  window.location.href = `http://localhost:8006/auth/register`;
 });
 
 // 🚪 logout

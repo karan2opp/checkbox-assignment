@@ -112,44 +112,52 @@ app.get("/auth/login", async (req, res) => {
   return res.redirect(url); // no session.save() needed anymore
 });
 
-// ------------------ CALLBACK ------------------
+// // ------------------ CALLBACK ------------------
+// app.get("/api/oidc/callback", async (req, res) => {
+//   const { code, state } = req.query;
+
+//   // const valid = await redis.get(`oauth_state:${state}`); // 👈 validate from Redis
+//   // if (!valid) return res.status(400).send("Invalid state");
+//   // await redis.del(`oauth_state:${state}`); // 👈 delete after use, one-time use only
+
+//   try {
+//     const tokenRes = await axios.post(
+//       `${process.env.KAUTH_BASE_URL}/api/oidc/token`,
+//       {
+//         code,
+//         client_id: process.env.KAUTH_CLIENT_ID,
+//         client_secret: process.env.KAUTH_CLIENT_SECRET,
+//         redirect_uri: process.env.KAUTH_REDIRECT_URI,
+//         grant_type: "authorization_code",
+//       }
+//     );
+
+//     const { accessToken } = tokenRes.data.data;
+
+//     const userInfoRes = await axios.get(
+//       `${process.env.KAUTH_BASE_URL}/api/oidc/userinfo`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       }
+//     );
+
+//     req.session.user = userInfoRes.data.data;
+
+//     return res.redirect(process.env.FRONTEND_URL);
+//   } catch (err) {
+//     console.error(err.response?.data || err.message);
+//     return res.status(500).send("OAuth failed");
+//   }
+// });
 app.get("/api/oidc/callback", async (req, res) => {
-  const { code, state } = req.query;
-
-  // const valid = await redis.get(`oauth_state:${state}`); // 👈 validate from Redis
-  // if (!valid) return res.status(400).send("Invalid state");
-  // await redis.del(`oauth_state:${state}`); // 👈 delete after use, one-time use only
-
-  try {
-    const tokenRes = await axios.post(
-      `${process.env.KAUTH_BASE_URL}/api/oidc/token`,
-      {
-        code,
-        client_id: process.env.KAUTH_CLIENT_ID,
-        client_secret: process.env.KAUTH_CLIENT_SECRET,
-        redirect_uri: process.env.KAUTH_REDIRECT_URI,
-        grant_type: "authorization_code",
-      }
-    );
-
-    const { accessToken } = tokenRes.data.data;
-
-    const userInfoRes = await axios.get(
-      `${process.env.KAUTH_BASE_URL}/api/oidc/userinfo`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    req.session.user = userInfoRes.data.data;
-
-    return res.redirect(process.env.FRONTEND_URL);
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    return res.status(500).send("OAuth failed");
-  }
+  const { code } = req.query;
+  console.log("callback hit, code:", code);
+  
+  // TODO: exchange code for tokens properly
+  // For now just redirect to frontend
+  return res.redirect("https://checkbox.karanop.in");
 });
   // ------------------ GET CURRENT USER ------------------
   app.get("/api/auth/me", (req, res) => {

@@ -130,7 +130,7 @@ app.get("/auth/register", async(req, res) => {
     `&scope=openid profile email` +
     `&state=${state}`;
 
-  return res.redirect(url);
+  return res.redirect("https://auth.karanop.in/register");
 });
 
 // // ------------------ CALLBACK ------------------

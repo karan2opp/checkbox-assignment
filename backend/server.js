@@ -129,6 +129,7 @@ app.get("/auth/register", async(req, res) => {
     `&response_type=code` +
     `&scope=openid profile email` +
     `&state=${state}`;
+console.log(`ye logs hai ${url}`);
 
   return res.redirect(url);
 });

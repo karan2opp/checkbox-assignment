@@ -86,7 +86,6 @@ app.use(
 
 // ------------------ LOGIN ------------------
 app.get("/auth/login", async (req, res) => {
-  console.log("auth/login hit")
   const CLIENT_ID = process.env.KAUTH_CLIENT_ID;
   const REDIRECT_URI = process.env.KAUTH_REDIRECT_URI;
   const KAUTH_URL = process.env.KAUTH_BASE_URL;
@@ -110,6 +109,28 @@ app.get("/auth/login", async (req, res) => {
  console.log("KAUTH_URL:", KAUTH_URL); // 👈 add this
   console.log("redirecting to:", `${KAUTH_URL}/api/oidc/authorize`); 
   return res.redirect(url); // no session.save() needed anymore
+});
+app.get("/auth/register", async(req, res) => {
+  const CLIENT_ID = process.env.KAUTH_CLIENT_ID;
+  const REDIRECT_URI = process.env.KAUTH_REDIRECT_URI;
+  const KAUTH_URL = process.env.KAUTH_BASE_URL;
+
+  if (!CLIENT_ID || !REDIRECT_URI || !KAUTH_URL) {
+    return res.status(500).send("Missing env variables");
+  }
+
+  const state = crypto.randomBytes(16).toString("hex");
+  await redis.set(`oauth_state:${state}`, "valid", "EX", 300);
+
+  const url =
+    `${KAUTH_URL}/register` +
+    `?client_id=${CLIENT_ID}` +
+    `&redirect_uri=${REDIRECT_URI}` +
+    `&response_type=code` +
+    `&scope=openid profile email` +
+    `&state=${state}`;
+
+  return res.redirect(url);
 });
 
 // // ------------------ CALLBACK ------------------

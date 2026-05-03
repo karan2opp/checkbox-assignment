@@ -116,9 +116,9 @@ app.get("/auth/login", async (req, res) => {
 app.get("/api/oidc/callback", async (req, res) => {
   const { code, state } = req.query;
 
-  const valid = await redis.get(`oauth_state:${state}`); // 👈 validate from Redis
-  if (!valid) return res.status(400).send("Invalid state");
-  await redis.del(`oauth_state:${state}`); // 👈 delete after use, one-time use only
+  // const valid = await redis.get(`oauth_state:${state}`); // 👈 validate from Redis
+  // if (!valid) return res.status(400).send("Invalid state");
+  // await redis.del(`oauth_state:${state}`); // 👈 delete after use, one-time use only
 
   try {
     const tokenRes = await axios.post(

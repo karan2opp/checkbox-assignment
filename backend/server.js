@@ -95,6 +95,7 @@ app.get("/auth/login", async (req, res) => {
     return res.status(500).send("Missing env variables");
   }
 
+
   const state = crypto.randomBytes(16).toString("hex");
 
   await redis.set(`oauth_state:${state}`, "valid", "EX", 300); // 👈 store in Redis, expires in 5 min
@@ -106,7 +107,8 @@ app.get("/auth/login", async (req, res) => {
     `&response_type=code` +
     `&scope=openid profile email` +
     `&state=${state}`;
-
+ console.log("KAUTH_URL:", KAUTH_URL); // 👈 add this
+  console.log("redirecting to:", `${KAUTH_URL}/api/oidc/authorize`); 
   return res.redirect(url); // no session.save() needed anymore
 });
 

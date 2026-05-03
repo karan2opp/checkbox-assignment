@@ -1,0 +1,108 @@
+/* Page styling */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #0f172a; /* dark background */
+  color: white;
+}
+
+/* Container grid */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  gap: 10px;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+/* Checkbox styling */
+.container input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  /* remove default look */
+  appearance: none;
+  border: 2px solid #64748b;
+  border-radius: 6px;
+  background: #0f172a;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.container input[type="checkbox"]:hover {
+  border-color: #38bdf8;
+  transform: scale(1.1);
+}
+
+/* Checked style */
+.container input[type="checkbox"]:checked {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+/* Checked hover */
+.container input[type="checkbox"]:checked:hover {
+  background: #16a34a;
+}
+/* Notification box */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ef4444;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideIn 0.3s forwards;
+}
+
+/* Animation */
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade out */
+.notification.hide {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+.auth-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.auth-bar button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-bar button:hover {
+  background: #0ea5e9;
+}

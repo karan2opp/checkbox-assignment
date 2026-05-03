@@ -88,7 +88,7 @@ app.use(
 app.get("/auth/login", async (req, res) => {
   const CLIENT_ID = process.env.KAUTH_CLIENT_ID;
   const REDIRECT_URI = process.env.KAUTH_REDIRECT_URI;
-  const KAUTH_URL = process.env.KAUTH_BASE_URL;
+  const KAUTH_URL = process.env.KAUTH_API_URL;
 
   if (!CLIENT_ID || !REDIRECT_URI || !KAUTH_URL) {
     return res.status(500).send("Missing env variables");

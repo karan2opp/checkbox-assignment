@@ -45,7 +45,7 @@ loginBtn.addEventListener("click", () => {
 });
 
 signupBtn.addEventListener("click", () => {
-  window.location.href = `${API_URL}/auth/login`;
+  window.location.href = `${API_URL}/auth/register`;
 });
 
 // 🚪 logout

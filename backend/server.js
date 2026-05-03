@@ -122,14 +122,13 @@ app.get("/auth/register", async(req, res) => {
   const state = crypto.randomBytes(16).toString("hex");
   await redis.set(`oauth_state:${state}`, "valid", "EX", 300);
 
-  const url =
-    `${KAUTH_URL}/register` +
-    `?client_id=${CLIENT_ID}` +
-    `&redirect_uri=${REDIRECT_URI}` +
-    `&response_type=code` +
-    `&scope=openid profile email` +
-    `&state=${state}`;
-console.log(`ye logs hai ${url}`);
+const url =
+  `${KAUTH_URL}/api/oidc/register` +  // 👈 backend register route
+  `?client_id=${CLIENT_ID}` +
+  `&redirect_uri=${REDIRECT_URI}` +
+  `&response_type=code` +
+  `&scope=openid profile email` +
+  `&state=${state}`;
 
   return res.redirect(url);
 });

@@ -86,6 +86,7 @@ app.use(
 
 // ------------------ LOGIN ------------------
 app.get("/auth/login", async (req, res) => {
+  console.log("auth/login hit")
   const CLIENT_ID = process.env.KAUTH_CLIENT_ID;
   const REDIRECT_URI = process.env.KAUTH_REDIRECT_URI;
   const KAUTH_URL = process.env.KAUTH_BASE_URL;

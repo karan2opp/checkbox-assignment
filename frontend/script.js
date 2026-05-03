@@ -45,7 +45,7 @@ loginBtn.addEventListener("click", () => {
 });
 
 signupBtn.addEventListener("click", () => {
-  window.location.href = `http://localhost:8006/auth/register`;
+  window.location.href = `${API_URL}/auth/register`;
 });
 
 // 🚪 logout

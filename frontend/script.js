@@ -45,7 +45,7 @@ loginBtn.addEventListener("click", () => {
 });
 
 signupBtn.addEventListener("click", () => {
-  window.location.href = `${API_URL}/auth/register`;
+  window.location.href = `https://auth.karanop.in/register`;
 });
 
 // 🚪 logout
